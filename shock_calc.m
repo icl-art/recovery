@@ -10,14 +10,14 @@ clear
 clc
 close all
 
-file_name = 'test';        
+file_name = 'nose_click_test1';        
 
     %   inputs
-Cd = 1.4;       %   parachute drag coefficient
-L = 2.5;        %   shock cord length
-S = pi*0.15^2;  %   parachute area
-m = 1.4;        %   rocket mass
-t_delay = 9;    %   parachute delployment delay (after apogee)
+Cd = 1.4;           %   parachute drag coefficient
+L = 3;              %   shock cord length                               [m]
+S = pi*0.305^2;     %   parachute area                                  [m2]
+m = 0.9;            %   rocket mass                                     [kg]
+t_delay = 2.6;      %   parachute delployment delay (after apogee)      [s]
 
     %   simulation time parameters
 dt = 0.01;
@@ -27,7 +27,7 @@ sim_time = 0;
 V0 = sqrt(2*9.81*L+t_delay^2*9.81^2);   
 v = [];
 v(1) = -V0;
-v(2) = V0+10;
+v(2) = V0+9.81*dt;
 k = 0.5*1.225*Cd*S/m;
 grad = [];
 grad(1:2) = 0;
@@ -36,7 +36,7 @@ error = 10;
 
     %   parachute force scale factor
 F = ones(1,total_time/dt+3);
-F_open = 0.2+dt;                  %   time taken to open parachute fully
+F_open = 0.3+dt;                  %   time taken to open parachute fully [s]
 
 F_ticks = F_open/dt;
 
@@ -73,7 +73,7 @@ plot(time,F)
 xlabel('time / s')
 ylabel('Chute diameter / percentage of max')
 ylim([0 1.2])
-xlim([0 time(end)*0.1])
+xlim([0 F_open*1.2])
 grid on
 grid minor
 box on
@@ -107,4 +107,5 @@ exportgraphics(gcf, sprintf('%s_shock_loads.png',  file_name), 'Resolution', 600
 
 disp(['Total impulse delivered = ', num2str(sum(grad)*dt*m), ' Ns'])
 disp(['Max shock load = ', num2str(max(m*grad)), ' N'])
+disp(['Max acceleration = ', num2str(max(grad)), ' m/s2'])
 disp(['Average load = ', num2str(sum(m*grad)*dt/total_time), ' N'])
