@@ -2,7 +2,7 @@
 %   MATLAB script that calculates the time-varying load in the shock 
 %   chord using Newton's second law. The rocket is modelled as a point mass and
 %   the shock cord is inextensible. The variation of the parachute force as it 
-%   opens is modelled by a polynomial initial period followed by a constant 
+%   opens is modelled by a polynomial opening period followed by a constant 
 %   force, with the parachute opening time as a input.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
